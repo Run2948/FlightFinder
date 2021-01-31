@@ -1,0 +1,29 @@
+﻿@inject AppState State
+@page "/"
+
+<div class="main">
+    <div class="search-area">
+        <div class="px-2 py-3">
+            <Search OnSearch="State.Search"/>
+        </div>
+    </div>
+    <div class="results-area">
+        <GreyOutZone IsGreyedOut="State.SearchInProgress">
+            <SearchResults Itineraries="State.SearchResults" OnAddItinerary="State.AddToShortlist"/>
+        </GreyOutZone>
+    </div>
+</div>
+
+<div class="selections-area">
+    <div class="p-3 pl-4">
+        <Shortlist Itineraries="State.Shortlist" OnRemoveItinerary="State.RemoveFromShortlist"/>
+    </div>
+</div>
+
+@code
+{
+    protected override void OnInitialized()
+    {
+        State.OnChange += StateHasChanged;
+    }
+}
